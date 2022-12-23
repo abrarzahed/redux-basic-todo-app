@@ -12,7 +12,6 @@ export const colorChanged = (color, changeType) => {
     type: COLOR_CHANGED,
     payload: {
       color,
-      changeType,
     },
   };
 };

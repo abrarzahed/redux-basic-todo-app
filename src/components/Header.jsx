@@ -1,9 +1,47 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { added, allCompleted, clearCompleted } from "../redux/todos/actions";
+
 export default function Header() {
+  const dispatch = useDispatch();
+  const [input, setInput] = useState("");
+
+  const todos = useSelector((state) => state.todos);
+
+  // handle input change
+  const handleInputChange = (e) => {
+    const { value } = e.target;
+    setInput(value);
+  };
+
+  // handle form submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (input.length > 1) {
+      dispatch(added(input));
+    }
+    setInput("");
+  };
+
+  // handle all completed
+  const handleAllCompleted = () => {
+    dispatch(allCompleted());
+  };
+
+  // handle clear completed
+  const handleClearCompleted = () => {
+    dispatch(clearCompleted());
+  };
   return (
     <div>
-      <form className="flex items-center bg-gray-100 px-4 py-4 rounded-md">
+      <form
+        onSubmit={handleSubmit}
+        className="flex items-center bg-gray-100 px-4 py-4 rounded-md"
+      >
         <img src="./images/notes.png" className="w-6 h-6" alt="Add todo" />
         <input
+          value={input}
+          onChange={handleInputChange}
           type="text"
           placeholder="Type your todo"
           className="w-full text-lg px-4 py-1 border-none outline-none bg-gray-100 text-gray-500"
@@ -14,17 +52,24 @@ export default function Header() {
         ></button>
       </form>
 
-      <ul className="flex justify-between my-4 text-xs text-gray-500">
-        <li className="flex space-x-1 cursor-pointer">
-          <img
-            className="w-4 h-4"
-            src="./images/double-tick.png"
-            alt="Complete"
-          />
-          <span>Complete All Tasks</span>
-        </li>
-        <li className="cursor-pointer">Clear completed</li>
-      </ul>
+      {todos.length > 0 && (
+        <ul className="flex justify-between my-4 text-xs text-gray-500">
+          <li className="flex space-x-1 cursor-pointer">
+            <img
+              className="w-4 h-4"
+              src="./images/double-tick.png"
+              alt="Complete"
+            />
+            <span onClick={handleAllCompleted}>Complete All Tasks</span>
+          </li>
+          <li
+            onClick={handleClearCompleted}
+            className="cursor-pointer text-red-400"
+          >
+            Clear completed
+          </li>
+        </ul>
+      )}
     </div>
   );
 }
