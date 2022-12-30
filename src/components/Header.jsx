@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { added, allCompleted, clearCompleted } from "../redux/todos/actions";
+import addTodo from "../redux/todos/thunk/addTodo";
+import clearCompletedTodos from "../redux/todos/thunk/clearCompletedTodos";
+import completeAllTodos from "../redux/todos/thunk/completeAllTodos";
 
 export default function Header() {
   const dispatch = useDispatch();
   const [input, setInput] = useState("");
 
   const todos = useSelector((state) => state.todos);
+  const completedTodos = todos.filter((todo) => todo.completed);
 
   // handle input change
   const handleInputChange = (e) => {
@@ -18,19 +21,19 @@ export default function Header() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input.length > 1) {
-      dispatch(added(input));
+      dispatch(addTodo(input));
     }
     setInput("");
   };
 
   // handle all completed
   const handleAllCompleted = () => {
-    dispatch(allCompleted());
+    dispatch(completeAllTodos(todos));
   };
 
   // handle clear completed
   const handleClearCompleted = () => {
-    dispatch(clearCompleted());
+    dispatch(clearCompletedTodos(completedTodos));
   };
   return (
     <div>

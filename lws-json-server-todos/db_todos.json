@@ -2,9 +2,9 @@
   "todos": [
     {
       "id": 1,
-      "text": "Learn Vanilla JavaScript ES6",
-      "completed": false,
-      "color": "red"
+      "text": "Learn Vanilla JavaScript ES",
+      "completed": true,
+      "color": "green"
     }
   ]
 }

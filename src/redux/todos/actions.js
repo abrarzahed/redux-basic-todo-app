@@ -5,6 +5,7 @@ import {
   COLOR_SELECTED,
   DELETED,
   LOADED,
+  TEXT_EDITED,
   TOGGLED,
 } from "./actonTypes";
 
@@ -25,6 +26,16 @@ export const toggled = (todoId) => {
   return {
     type: TOGGLED,
     payload: todoId,
+  };
+};
+
+export const textEdited = (todoId, todoText) => {
+  return {
+    type: TEXT_EDITED,
+    payload: {
+      todoId,
+      todoText,
+    },
   };
 };
 

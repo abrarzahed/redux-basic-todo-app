@@ -5,6 +5,7 @@ import {
   COLOR_SELECTED,
   DELETED,
   LOADED,
+  TEXT_EDITED,
   TOGGLED,
 } from "./actonTypes";
 import initialState from "./initialState";
@@ -13,6 +14,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOADED:
       return action.payload;
+
     case ADDED:
       return [
         ...state,
@@ -29,6 +31,18 @@ const reducer = (state = initialState, action) => {
           return {
             ...todo,
             completed: !todo.completed,
+          };
+        } else {
+          return todo;
+        }
+      });
+
+    case TEXT_EDITED:
+      return state.map((todo) => {
+        if (todo.id === action.payload.todoId) {
+          return {
+            ...todo,
+            text: action.payload.todoText,
           };
         } else {
           return todo;
