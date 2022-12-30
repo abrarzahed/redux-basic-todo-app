@@ -3,7 +3,7 @@ import { allCompleted } from "../actions";
 const completeAllTodos = (allTodos) => {
   return async (dispatch) => {
     for (let todo of allTodos) {
-      await fetch(`http://localhost:9000/todos/${todo.id}`, {
+      await fetch(`https://rdx-todo.netlify.app/todos/${todo.id}`, {
         method: "PATCH",
         body: JSON.stringify({
           completed: true,
