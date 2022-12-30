@@ -4,12 +4,15 @@ import {
   CLEAR_COMPLETED,
   COLOR_SELECTED,
   DELETED,
+  LOADED,
   TOGGLED,
 } from "./actonTypes";
 import initialState from "./initialState";
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case LOADED:
+      return action.payload;
     case ADDED:
       return [
         ...state,

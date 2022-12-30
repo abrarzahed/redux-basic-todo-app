@@ -4,9 +4,16 @@ import {
   CLEAR_COMPLETED,
   COLOR_SELECTED,
   DELETED,
+  LOADED,
   TOGGLED,
 } from "./actonTypes";
 
+export const loaded = (todos) => {
+  return {
+    type: LOADED,
+    payload: todos,
+  };
+};
 export const added = (todoText) => {
   return {
     type: ADDED,
